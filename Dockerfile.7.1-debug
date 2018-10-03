@@ -1,0 +1,23 @@
+FROM hub.docker.com/vintage/php-fpm:7.1-latest
+
+# Todo add more information
+LABEL Maintainer="Filip Cieker <filip.cieker@ezmid.com"
+
+USER root
+
+################################################################################
+# Layer 1 - Add debug tools
+RUN apk --no-cache update && \
+    apk --no-cache add \
+    htop \
+    mysql-client \
+    redis \
+    shadow \
+    yarn
+
+################################################################################
+# System init
+EXPOSE 9000
+WORKDIR /var/www/app
+USER www-data
+CMD ["php-fpm7", "-F", "--fpm-config", "/etc/php7/php-fpm.conf"]
