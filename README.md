@@ -1,5 +1,8 @@
 # Vintage PHP-FPM
 
+[![Build Status](https://travis-ci.org/ezmid/vintage-php-fpm.svg?branch=master)](https://travis-ci.org/ezmid/vintage-php-fpm) ![Docker Hub Status](https://img.shields.io/docker/build/ezmid/vintage-php-fpm.svg) ![Image Pulls](https://img.shields.io/docker/pulls/ezmid/vintage-php-fpm.svg) ![Image Stars](https://img.shields.io/docker/stars/ezmid/vintage-php-fpm.svg)
+
+
 This is a simple PHP-FPM service on top of Alpine Linux.
 
 ## Installation
