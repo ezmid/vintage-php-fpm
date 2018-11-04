@@ -28,11 +28,11 @@ ECHO=$(shell which echo)
 ################################################################################
 # Specific project variables
 ################################################################################
-DOCKERFILE=Dockerfile.7.1
+DOCKERFILE=Dockerfile.7.2
 REGISTRY=hub.docker.com
-NAMESPACE=vintage
-IMAGE=php-fpm
-TAG=7.1
+NAMESPACE=ezmid
+IMAGE=vintage-php-fpm
+TAG=7.2
 VERSION=latest
 
 ################################################################################

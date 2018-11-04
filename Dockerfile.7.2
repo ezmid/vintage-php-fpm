@@ -1,6 +1,6 @@
 FROM alpine:3.8
 
-# Todo add more information
+MAINTAINER Filip Cieker <filip.cieker@ezmid.com>
 LABEL Maintainer="Filip Cieker <filip.cieker@ezmid.com>"
 
 ################################################################################
@@ -15,7 +15,6 @@ RUN apk --no-cache update && \
     php7-fileinfo \
     php7-fpm \
     php7-gd \
-    # php7-imagick \
     php7-intl \
     php7-iconv \
     php7-json \

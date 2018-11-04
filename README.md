@@ -1,6 +1,6 @@
-# Vintage Docker PHP
+# Vintage PHP-FPM
 
-This is a simple PHP-FPM 7 service on top of Alpine Linux.
+This is a simple PHP-FPM service on top of Alpine Linux.
 
 ## Installation
 
@@ -15,19 +15,15 @@ This is a simple PHP-FPM 7 service on top of Alpine Linux.
 ## Development
 ```sh
 # Build the image, TAG=latest is the default value
-[user@dev ~]$ make build
+$ make build
 # Build the image with a specific tag
-[user@dev ~]$ make build TAG=1.1.0
+$ make build TAG=1.1.0
 # Test the latest image
-[user@dev ~]$ make test
+$ make test
 # Test a specific tag
-[user@dev ~]$ make test TAG=1.1.0
+$ make test TAG=1.1.0
 # Push the latest tag to the registry
-[user@dev ~]$ make push
+$ make push
 # Push a specific tag
-[user@dev ~]$ make push TAG=1.1.0
+$ make push TAG=1.1.0
 ```
-
-## Integration
-Travis CS
-
