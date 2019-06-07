@@ -1,0 +1,35 @@
+package:
+  php7:
+    installed: true
+    versions:
+    - 7.2.18-r0
+  php7-fpm:
+    installed: true
+    versions:
+    - 7.2.18-r0
+port:
+  tcp6:9000:
+    listening: true
+    ip:
+    - '::'
+user:
+  nobody:
+    exists: true
+    uid: 65534
+    gid: 65534
+    groups:
+    - nobody
+    home: /
+    shell: /sbin/nologin
+  www-data:
+    exists: true
+    uid: 82
+    gid: 82
+    groups:
+    - root
+    - www-data
+    home: /home/www-data
+    shell: /bin/ash
+process:
+  php-fpm7:
+    running: true

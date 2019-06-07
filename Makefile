@@ -28,10 +28,11 @@ ECHO=$(shell which echo)
 ################################################################################
 # Specific project variables
 ################################################################################
-DOCKERFILE=Dockerfile.7.2
-REGISTRY=hub.docker.com
+DOCKERFILE=php-7.2.Dockerfile
+REGISTRY=
 NAMESPACE=ezmid
 IMAGE=vintage-php-fpm
+IMAGE_NAME=$(NAMESPACE)/$(IMAGE)
 TAG=7.2
 VERSION=latest
 
@@ -62,82 +63,148 @@ default:
 .PHONY: build
 .ONESHELL: build
 build:
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):$(TAG)-$(VERSION) -f $(DOCKERFILE)
+	docker build . -t $(IMAGE_NAME):$(TAG)-$(VERSION) -f $(DOCKERFILE)
 
 # Build/rebuild all images
 .PHONY: build/all
 .ONESHELL: build/all
 build/all:
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.0-$(VERSION) -f Dockerfile.7.0
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.0-debug-$(VERSION) -f Dockerfile.7.0-debug
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.1-$(VERSION) -f Dockerfile.7.1
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.1-debug-$(VERSION) -f Dockerfile.7.1-debug
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.2-$(VERSION) -f Dockerfile.7.2
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.2-debug-$(VERSION) -f Dockerfile.7.2-debug
+	docker build . -t $(IMAGE_NAME):7.0-$(VERSION) -f php-7.0.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.0-debug-$(VERSION) -f php-7.0.Dockerfile
+	docker build . -t $(IMAGE_NAME):7.1-$(VERSION) -f php-7.1.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.1-debug-$(VERSION) -f php-7.1.Dockerfile
+	docker build . -t $(IMAGE_NAME):7.2-$(VERSION) -f php-7.2.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.2-debug-$(VERSION) -f php-7.2.Dockerfile
+	docker build . -t $(IMAGE_NAME):7.2-base-$(VERSION) -f php-7.2-base.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.2-base-debug-$(VERSION) -f php-7.2-base.Dockerfile
 
 # PHP 7.0
 .PHONY: build/7.0
 .ONESHELL: build/7.0
 build/7.0:
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.0-$(VERSION) -f Dockerfile.7.0
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.0-debug-$(VERSION) -f Dockerfile.7.0-debug
+	docker build . -t $(IMAGE_NAME):7.0-$(VERSION) -f php-7.0.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.0-debug-$(VERSION) -f php-7.0.Dockerfile-debug
 
 # PHP 7.1
 .PHONY: build/7.1
 .ONESHELL: build/7.1
 build/7.1:
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.1-debug-$(VERSION) -f Dockerfile.7.1
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.1-debug-$(VERSION) -f Dockerfile.7.1-debug
+	docker build . -t $(IMAGE_NAME):7.1-$(VERSION) -f php-7.1.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.1-debug-$(VERSION) -f php-7.1.Dockerfile-debug
 
 # PHP 7.2
 .PHONY: build/7.2
 .ONESHELL: build/7.2
 build/7.2:
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.2-$(VERSION) -f Dockerfile.7.2
-	docker build . -t $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.2-debug-$(VERSION) -f Dockerfile.7.2-debug
+	docker build . -t $(IMAGE_NAME):7.2-$(VERSION) -f php-7.2.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.2-debug-$(VERSION) -f php-7.2.Dockerfile-debug
+
+# PHP 7.2-base
+.PHONY: build/7.2-base
+.ONESHELL: build/7.2-base
+build/7.2-base:
+	docker build . -t $(IMAGE_NAME):7.2-base-$(VERSION) -f php-7.2-base.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.2-debug-$(VERSION) -f php-7.2.Dockerfile-debug
+
+# PHP 7.3
+.PHONY: build/7.3
+.ONESHELL: build/7.3
+build/7.3:
+	docker build . -t $(IMAGE_NAME):7.3-$(VERSION) -f php-7.3.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.3-debug-$(VERSION) -f php-7.3.Dockerfile-debug
 
 ################################################################################
 # Push the image to registry
 .PHONY: push
 .ONESHELL: push
 push:
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):$(TAG)-$(VERSION)
+	docker push $(IMAGE_NAME):$(TAG)-$(VERSION)
 
 # Push all
 .PHONY: push/all
 .ONESHELL: push/all
 push/all:
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.0-$(VERSION)
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.0-debug-$(VERSION)
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.1-$(VERSION)
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.1-debug-$(VERSION)
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.2-$(VERSION)
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.2-debug-$(VERSION)
+	docker push $(IMAGE_NAME):7.0-$(VERSION)
+	# docker push $(IMAGE_NAME):7.0-debug-$(VERSION)
+	docker push $(IMAGE_NAME):7.1-$(VERSION)
+	# docker push $(IMAGE_NAME):7.1-debug-$(VERSION)
+	docker push $(IMAGE_NAME):7.2-$(VERSION)
+	# docker push $(IMAGE_NAME):7.2-debug-$(VERSION)
+	docker push $(IMAGE_NAME):7.3-$(VERSION)
+	# docker push $(IMAGE_NAME):7.3-debug-$(VERSION)
 
 # Push 7.0
 .PHONY: push/7.0
 .ONESHELL: push/7.0
 push/7.0:
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.0-$(VERSION)
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.0-debug-$(VERSION)
+	docker push $(IMAGE_NAME):7.0-$(VERSION)
+	# docker push $(IMAGE_NAME):7.0-debug-$(VERSION)
 
 # Push 7.1
 .PHONY: push/7.1
 .ONESHELL: push/7.1
 push/7.1:
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.1-$(VERSION)
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.1-debug-$(VERSION)
+	docker push $(IMAGE_NAME):7.1-$(VERSION)
+	# docker push $(IMAGE_NAME):7.1-debug-$(VERSION)
 
 # Push 7.2
 .PHONY: push/7.2
 .ONESHELL: push/7.2
 push/7.2:
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.2-$(VERSION)
-	docker push $(REGISTRY)/$(NAMESPACE)/$(IMAGE):7.2-debug-$(VERSION)
+	docker push $(IMAGE_NAME):7.2-$(VERSION)
+	# docker push $(IMAGE_NAME):7.2-debug-$(VERSION)
+
+# Push 7.2-base
+.PHONY: push/7.2-base
+.ONESHELL: push/7.2-base
+push/7.2-base:
+	docker push $(IMAGE_NAME):7.2-base-$(VERSION)
+	# docker push $(IMAGE_NAME):7.2-base-debug-$(VERSION)
+
+# Push 7.3
+.PHONY: push/7.3
+.ONESHELL: push/7.3
+push/7.3:
+	docker push $(IMAGE_NAME):7.3-$(VERSION)
+	# docker push $(IMAGE_NAME):7.3-debug-$(VERSION)
 
 ################################################################################
 # Run a test
 .PHONY: test
 .ONESHELL: test
 test:
-	@dgoss run $(REGISTRY)/$(NAMESPACE)/$(IMAGE):$(TAG)-$(VERSION)
+	rm goss.yaml
+	cp $(TAG)-goss.yaml goss.yaml
+	@dgoss run $(IMAGE_NAME):$(TAG)-$(VERSION)
+
+# Run a test
+.PHONY: test/7.0
+.ONESHELL: test/7.0
+test/7.0:
+	rm -f goss.yaml
+	cp php-7.0-goss.yaml goss.yaml
+	dgoss run $(IMAGE_NAME):7.0-$(VERSION)
+
+# Run a test
+.PHONY: test/7.1
+.ONESHELL: test/7.1
+test/7.1:
+	rm -f goss.yaml
+	cp php-7.1-goss.yaml goss.yaml
+	dgoss run $(IMAGE_NAME):7.1-$(VERSION)
+
+# Run a test
+.PHONY: test/7.2
+.ONESHELL: test/7.2
+test/7.2:
+	rm -f goss.yaml
+	cp php-7.2-goss.yaml goss.yaml
+	dgoss run $(IMAGE_NAME):7.2-$(VERSION)
+
+# Run a test
+.PHONY: test/7.2-base
+.ONESHELL: test/7.2-base
+test/7.2-base:
+	rm -f goss.yaml
+	cp php-7.2-base-goss.yaml goss.yaml
+	dgoss run $(IMAGE_NAME):7.2-base-$(VERSION)
