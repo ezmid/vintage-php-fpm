@@ -173,8 +173,8 @@ push/7.3:
 .PHONY: test
 .ONESHELL: test
 test:
-	rm goss.yaml
-	cp $(TAG)-goss.yaml goss.yaml
+	rm -f goss.yaml
+	cp php-$(TAG)-goss.yaml goss.yaml
 	@dgoss run $(IMAGE_NAME):$(TAG)-$(VERSION)
 
 # Run a test
