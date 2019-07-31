@@ -1,5 +1,6 @@
-FROM alpine:edge
+FROM alpine:3.10
 
+# Todo add more information
 LABEL Maintainer="Filip Cieker <filip.cieker@ezmid.com>"
 
 ################################################################################
@@ -28,8 +29,6 @@ RUN apk --no-cache --update upgrade && \
     php7-session \
     php7-simplexml \
     php7-soap \
-    php7-sockets \
-    php7-sodium \
     php7-tokenizer \
     php7-xdebug \
     php7-xml \
@@ -44,7 +43,7 @@ RUN apk --no-cache --update upgrade && \
 
 ################################################################################
 # Layer 2 - Iconv hack
-RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community gnu-libiconv
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 ################################################################################
@@ -63,7 +62,7 @@ COPY docker/7.3 /
 ENV APP_GID=82
 ENV APP_UID=82
 RUN addgroup -g ${APP_GID} www-data && \
-    adduser -D -u ${APP_UID} -G www-data www-data && \
+    adduser -D -u ${APP_UID} -G www-data -s /bin/ash www-data && \
     usermod -a -G root www-data && \
     apk del shadow
 

@@ -77,6 +77,9 @@ build/all:
 	# docker build . -t $(IMAGE_NAME):7.2-debug-$(VERSION) -f php-7.2.Dockerfile
 	docker build . -t $(IMAGE_NAME):7.2-base-$(VERSION) -f php-7.2-base.Dockerfile
 	# docker build . -t $(IMAGE_NAME):7.2-base-debug-$(VERSION) -f php-7.2-base.Dockerfile
+	docker build . -t $(IMAGE_NAME):7.3-$(VERSION) -f php-7.3.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.3-debug-$(VERSION) -f php-7.2.Dockerfile
+	docker build . -t $(IMAGE_NAME):7.3-base-$(VERSION) -f php-7.3-base.Dockerfile
 
 # PHP 7.0
 .PHONY: build/7.0
@@ -111,6 +114,13 @@ build/7.2-base:
 .ONESHELL: build/7.3
 build/7.3:
 	docker build . -t $(IMAGE_NAME):7.3-$(VERSION) -f php-7.3.Dockerfile
+	# docker build . -t $(IMAGE_NAME):7.3-debug-$(VERSION) -f php-7.3.Dockerfile-debug
+
+# PHP 7.3-base
+.PHONY: build/7.3-base
+.ONESHELL: build/7.3-base
+build/7.3-base:
+	docker build . -t $(IMAGE_NAME):7.3-base-$(VERSION) -f php-7.3-base.Dockerfile
 	# docker build . -t $(IMAGE_NAME):7.3-debug-$(VERSION) -f php-7.3.Dockerfile-debug
 
 ################################################################################
@@ -168,6 +178,13 @@ push/7.3:
 	docker push $(IMAGE_NAME):7.3-$(VERSION)
 	# docker push $(IMAGE_NAME):7.3-debug-$(VERSION)
 
+# Push 7.3-base
+.PHONY: push/7.3-base
+.ONESHELL: push/7.3-base
+push/7.3-base:
+	docker push $(IMAGE_NAME):7.3-base-$(VERSION)
+	# docker push $(IMAGE_NAME):7.3-base-debug-$(VERSION)
+
 ################################################################################
 # Run a test
 .PHONY: test
@@ -208,3 +225,19 @@ test/7.2-base:
 	rm -f goss.yaml
 	cp php-7.2-base-goss.yaml goss.yaml
 	dgoss run $(IMAGE_NAME):7.2-base-$(VERSION)
+
+# Run a test
+.PHONY: test/7.3
+.ONESHELL: test/7.3
+test/7.3:
+	rm -f goss.yaml
+	cp php-7.3-goss.yaml goss.yaml
+	dgoss run $(IMAGE_NAME):7.3-$(VERSION)
+
+# Run a test
+.PHONY: test/7.3-base
+.ONESHELL: test/7.3-base
+test/7.3-base:
+	rm -f goss.yaml
+	cp php-7.3-base-goss.yaml goss.yaml
+	dgoss run $(IMAGE_NAME):7.3-base-$(VERSION)

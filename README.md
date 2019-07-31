@@ -12,7 +12,8 @@ This is a simple PHP-FPM service on top of Alpine Linux.
 - PHP 7.2-api -> ezmid/php-fpm-api:7.2-latest [SOON]
 - PHP 7.2-kafka -> ezmid/php-fpm-kafka:7.2-latest [SOON]
 - PHP 7.2-swoole -> ezmid/php-fpm-kafka:7.2-latest [SOON]
-- PHP 7.3 -> ezmid/php-fpm:7.3-latest [SOON]
+- PHP 7.3 -> ezmid/php-fpm:7.3-latest
+- PHP 7.3-base -> ezmid/php-fpm-base:7.3-latest
 
 ## Installation
 
