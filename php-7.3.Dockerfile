@@ -69,6 +69,6 @@ RUN addgroup -g ${APP_GID} www-data && \
 ################################################################################
 # System init
 EXPOSE 9000
-WORKDIR /var/www/app
+WORKDIR /app
 USER www-data
 CMD ["php-fpm7", "-F", "--fpm-config", "/etc/php7/php-fpm.conf"]

@@ -2,11 +2,11 @@ package:
   php7:
     installed: true
     versions:
-    - 7.2.18-r0
+    - 7.2.21-r0
   php7-fpm:
     installed: true
     versions:
-    - 7.2.18-r0
+    - 7.2.21-r0
 port:
   tcp6:9000:
     listening: true
